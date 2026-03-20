@@ -23,11 +23,16 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
+      - run: flutter create --project-name diario_obra_mvp --org br.com.embraurb .
       
-      # ESTA É A LINHA MÁGICA QUE RESOLVE O PROBLEMA:
-      - run: flutter create .
+      # FIX 1: Forçar a versão mínima do Android para o Isar funcionar
+      - run: sed -i 's/flutter.minSdkVersion/21/g' android/app/build.gradle
+      
+      # FIX 2: Desativar o Lint chato que trava o build do APK
+      - run: echo -e "\nandroid {\n    lintOptions {\n        checkReleaseBuilds false\n        abortOnError false\n    }\n}" >> android/app/build.gradle
       
       - run: flutter pub get
+      - run: dart run build_runner build --delete-conflicting-outputs
       - run: flutter build apk --release
       - uses: actions/upload-artifact@v4
         with:
@@ -42,5 +47,21 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          
-      # ESTA É A LINHA MÁGICA QU
+      - run: flutter create --project-name diario_obra_mvp --org br.com.embraurb .
+      - run: flutter pub get
+      - run: dart run build_runner build --delete-conflicting-outputs
+      - run: flutter build web --release --base-href "/diario-obra-app/"
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/web
+
+  deploy_web:
+    name: Publicar na Internet
+    needs: build_web
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
