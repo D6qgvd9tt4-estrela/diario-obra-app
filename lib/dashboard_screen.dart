@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'cadastro_obra_screen.dart';
+import 'lancamento_cbuq_screen.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
@@ -8,17 +9,14 @@ class DashboardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Diário de Obras', style: TextStyle(color: Colors.white)),
+        title: const Text('Diário Embraurb', style: TextStyle(color: Colors.white)),
         backgroundColor: const Color(0xFF003366),
         actions: [
           IconButton(
             icon: const Icon(Icons.add_business, color: Colors.white),
-            tooltip: 'Cadastrar Obra',
+            tooltip: 'Cadastrar Nova Obra',
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const CadastroObraScreen()),
-              );
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const CadastroObraScreen()));
             },
           ),
         ],
@@ -28,30 +26,25 @@ class DashboardScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Resumo de Hoje',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
+            const Text('Resumo de Hoje', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
             const SizedBox(height: 20),
             Row(
               children: [
-                Expanded(
-                  child: _buildCard('Total de Toneladas', '0 t', Colors.blue.shade900, Colors.white),
-                ),
+                Expanded(child: _buildCard('Total de Toneladas', '0 t', Colors.blue.shade900, Colors.white)),
                 const SizedBox(width: 16),
-                Expanded(
-                  child: _buildCard('Média de Temp.', '0 °C', Colors.grey.shade200, Colors.black87),
-                ),
+                Expanded(child: _buildCard('Média de Temp.', '0 °C', Colors.grey.shade200, Colors.black87)),
               ],
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
-        label: const Text('Lançar CBUQ'),
-        icon: const Icon(Icons.add),
-        backgroundColor: const Color(0xFF003366),
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const LancamentoCbuqScreen()));
+        },
+        label: const Text('Lançar CBUQ', style: TextStyle(fontWeight: FontWeight.bold)),
+        icon: const Icon(Icons.local_shipping),
+        backgroundColor: Colors.green.shade600,
         foregroundColor: Colors.white,
       ),
     );
@@ -60,10 +53,7 @@ class DashboardScreen extends StatelessWidget {
   Widget _buildCard(String titulo, String valor, Color corFundo, Color corTexto) {
     return Container(
       padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: corFundo,
-        borderRadius: BorderRadius.circular(12),
-      ),
+      decoration: BoxDecoration(color: corFundo, borderRadius: BorderRadius.circular(12)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
