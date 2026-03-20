@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'cadastro_obra_screen.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
@@ -9,6 +10,18 @@ class DashboardScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Diário de Obras', style: TextStyle(color: Colors.white)),
         backgroundColor: const Color(0xFF003366),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.add_business, color: Colors.white),
+            tooltip: 'Cadastrar Obra',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const CadastroObraScreen()),
+              );
+            },
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
