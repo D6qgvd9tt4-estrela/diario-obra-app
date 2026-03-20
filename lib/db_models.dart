@@ -4,7 +4,9 @@ part 'db_models.g.dart';
 
 @collection
 class Obra {
-  Id id = Isar.autoIncrement;
+  // FIX: Usando autoIncrement para garantir compatibilidade com a Web
+  Id id = Isar.autoIncrement; 
+  
   late String nome;
   late String contrato;
   late double toneladasPrevistas;
@@ -13,13 +15,14 @@ class Obra {
 
 @collection
 class Lancamento {
+  // FIX: Usando autoIncrement para garantir compatibilidade com a Web
   Id id = Isar.autoIncrement;
+  
   late String placa;
   late double peso;
   late double temperatura;
   late DateTime dataHora;
   
-  // Preparado para capturar a coordenada GPS no futuro
   double? latitude;
   double? longitude;
 }
