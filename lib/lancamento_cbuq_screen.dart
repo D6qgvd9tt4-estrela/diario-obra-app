@@ -51,4 +51,29 @@ class _LancamentoCbuqScreenState extends State<LancamentoCbuqScreen> {
               decoration: const InputDecoration(labelText: 'Peso (Toneladas)', border: OutlineInputBorder(), suffixText: 't'),
             ),
             const SizedBox(height: 16),
-            TextField
+            TextField(
+              controller: _tempController,
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(
+                labelText: 'Temperatura (°C)', 
+                border: OutlineInputBorder(), 
+                suffixText: '°C'
+              ),
+            ),
+            const Spacer(),
+            SizedBox(
+              width: double.infinity,
+              height: 50,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.green.shade600),
+                onPressed: _salvarLancamento,
+                child: const Text('Salvar Lançamento', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+              ),
+            ),
+            const SizedBox(height: 16),
+          ],
+        ),
+      ),
+    );
+  }
+}
