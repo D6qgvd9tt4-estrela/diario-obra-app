@@ -28,19 +28,19 @@ jobs:
         with:
           channel: stable
 
-      - name: Create Flutter platform files
+      - name: Criar arquivos Android
         run: flutter create --project-name diario_obra_mvp --org br.com.embraurb --platforms=android .
 
-      - name: Install dependencies
+      - name: Instalar dependências
         run: flutter pub get
 
-      - name: Generate Isar code
+      - name: Gerar código do Isar
         run: dart run build_runner build --delete-conflicting-outputs
 
-      - name: Build APK
+      - name: Gerar APK
         run: flutter build apk --release
 
-      - name: Upload APK artifact
+      - name: Publicar APK
         uses: actions/upload-artifact@v4
         with:
           name: android-apk
